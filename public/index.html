@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronic Signature Verification System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Electronic Signature Verification System</h1>
+        <p>Cyber Forensics and Investigation</p>
+    </header>
+
+    <div class="container">
+        <!-- Sign Document Section -->
+        <section class="card" id="sign-section">
+            <h2>Sign Document (Create Evidence)</h2>
+            <p>Upload an original document to calculate its hash, generate an RSA key pair, and create a digital signature.</p>
+            <form id="sign-form">
+                <div class="form-group">
+                    <label for="sign-file">Select Document to Sign:</label>
+                    <input type="file" id="sign-file" required>
+                </div>
+                <button type="submit" class="btn">Sign Document</button>
+            </form>
+            <div id="sign-result" class="result hidden">
+                <h3>Signature Evidence Generated</h3>
+                <p><strong>Evidence/Case ID:</strong> <span id="evidence-id"></span></p>
+                <p><strong>SHA-256 Hash:</strong> <span id="sign-hash" class="hash-text"></span></p>
+                <p class="notice">Please save the Evidence ID. You will need it to verify this document later.</p>
+            </div>
+        </section>
+
+        <!-- Verify Document Section -->
+        <section class="card" id="verify-section">
+            <h2>Electronic Signature Verification</h2>
+            <p>Upload a document and provide its Evidence ID to cryptographically verify its integrity.</p>
+            <form id="verify-form">
+                <div class="form-group">
+                    <label for="verify-evidence-id">Evidence/Case ID:</label>
+                    <input type="text" id="verify-evidence-id" placeholder="Enter the Evidence ID" required>
+                </div>
+                <div class="form-group">
+                    <label for="verify-file">Select Document to Verify:</label>
+                    <input type="file" id="verify-file" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Verify Document</button>
+            </form>
+            
+            <div id="verify-result" class="result hidden">
+                <h3>Forensic Verification Results</h3>
+                
+                <table class="results-table">
+                    <tr>
+                        <th>Case ID:</th>
+                        <td id="res-case-id"></td>
+                    </tr>
+                    <tr>
+                        <th>File Name:</th>
+                        <td id="res-file-name"></td>
+                    </tr>
+                    <tr>
+                        <th>File Size:</th>
+                        <td id="res-file-size"></td>
+                    </tr>
+                    <tr>
+                        <th>SHA-256 Hash:</th>
+                        <td id="res-hash" class="hash-text"></td>
+                    </tr>
+                    <tr>
+                        <th>Signature Algorithm:</th>
+                        <td id="res-algorithm"></td>
+                    </tr>
+                    <tr>
+                        <th>Verification Date/Time:</th>
+                        <td id="res-timestamp"></td>
+                    </tr>
+                </table>
+
+                <div class="status-box">
+                    <div class="status-item">
+                        <span>Hash Match:</span>
+                        <span id="res-hash-match" class="badge"></span>
+                    </div>
+                    <div class="status-item">
+                        <span>Digital Signature:</span>
+                        <span id="res-sig-valid" class="badge"></span>
+                    </div>
+                    <div class="status-item">
+                        <span>Document Integrity:</span>
+                        <span id="res-integrity" class="badge"></span>
+                    </div>
+                    <div class="status-item overall">
+                        <span>Overall Result:</span>
+                        <span id="res-overall" class="badge large"></span>
+                    </div>
+                </div>
+
+                <button id="generate-report-btn" class="btn btn-secondary">Generate Forensic Report</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Hidden Report Template for Printing -->
+    <div id="report-template" class="hidden">
+        <h2>Forensic Verification Report</h2>
+        <div id="report-content"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
